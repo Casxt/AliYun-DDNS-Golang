@@ -19,7 +19,7 @@ type Config struct {
 	DomainName      string
 	RRKeyWord       string
 	Sleep           int64
-	Uint            string
+	Unit            string
 }
 
 var config *Config
@@ -48,7 +48,7 @@ func main() {
 			panic("invalid InterfaceName")
 		}
 		updateRecoder()
-		switch config.Uint {
+		switch config.Unit {
 		case "Second":
 			time.Sleep(time.Duration(config.Sleep) * time.Second)
 		case "Minute":
@@ -56,7 +56,7 @@ func main() {
 		case "Hour":
 			time.Sleep(time.Duration(config.Sleep) * time.Hour)
 		default:
-			fmt.Println("Unsupport time Unit:", config.Uint, "Use Minute instead")
+			fmt.Println("Unsupport time Unit:", config.Unit, "Use Minute instead")
 			time.Sleep(time.Duration(config.Sleep) * time.Minute)
 		}
 	}
