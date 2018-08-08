@@ -105,10 +105,10 @@ func updateRecoder() {
 		return
 	}
 	if net4 != nil {
-		fmt.Println("found local ipv4:", net4.String())
+		fmt.Println("found ipv4:", net4.String())
 	}
 	if net6 != nil {
-		fmt.Println("found local ipv6:", net6.String())
+		fmt.Println("found ipv6:", net6.String())
 	}
 
 	client, err := sdk.NewClientWithAccessKey("cn-hangzhou", config.AccessKeyId, config.AccessKeySecret)
