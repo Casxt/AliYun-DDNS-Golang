@@ -101,7 +101,7 @@ func updateRecoder() {
 
 	if net4 == nil && net6 == nil {
 		fmt.Println(ifaces)
-		fmt.Println("Get Address Failed:", err.Error())
+		fmt.Println("Get Address Failed: InterFace Not exist")
 		return
 	}
 	if net4 != nil {
