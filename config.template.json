@@ -4,5 +4,5 @@
     "InterfaceName":"eth0",
     "Domain":"maple.link",
     "Sleep":5,
-    "Unit":"Minute" //Second Hour
+    "Unit":"Minute"
 }
