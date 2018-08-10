@@ -68,7 +68,7 @@ func main() {
 //SpliteDomain into DomainName, RRKeyWord
 //input a.b.g.com return a.b, g.com
 func SpliteDomain(domain string) (DomainName, RRKeyWord string) {
-	i := strings.LastIndex(s[0:strings.LastIndex(s, ".")], ".")
+	i := strings.LastIndex(domain[0:strings.LastIndex(domain, ".")], ".")
 	return domain[0:i], domain[i+1 : len(domain)]
 }
 
