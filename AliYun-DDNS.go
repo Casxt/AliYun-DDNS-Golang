@@ -37,7 +37,7 @@ func main() {
 			continue
 		}
 		if args[i] == "-h" {
-			fmt.Println("-c to specify config \r -h to get help")
+			fmt.Println("-c to specify config \r\n -h to get help")
 			return
 		}
 	}
