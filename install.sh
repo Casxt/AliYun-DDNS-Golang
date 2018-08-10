@@ -3,7 +3,7 @@ wget https://github.com/Casxt/DDNS/archive/master.zip
 unzip master.zip
 rm -f master.zip
 go get github.com/aliyun/alibaba-cloud-sdk-go/sdk
-go build DDNS-master/AliYun-DDNS.go -o DDNS-master/DDNS
+go build -o DDNS-master/DDNS DDNS-master/AliYun-DDNS.go 
 sudo cp DDNS-master/DDNS /etc/bin/DDNS
 sudo mkdir /etc/DDNS
 sudo cp DDNS-master/config.template.json /etc/DDNS/config.json
