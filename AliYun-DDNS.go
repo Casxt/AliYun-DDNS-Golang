@@ -32,8 +32,8 @@ func main() {
 	args := os.Args[1:]
 	for i := 0; i < len(args); i++ {
 		if args[i] == "-c" {
-			configPath = args[i]
 			i++
+			configPath = args[i]
 			continue
 		}
 		if args[i] == "-h" {
