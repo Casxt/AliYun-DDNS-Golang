@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
@@ -16,6 +17,7 @@ type Config struct {
 	AccessKeyId     string
 	AccessKeySecret string
 	InterfaceName   string
+	Domain          string
 	DomainName      string
 	RRKeyWord       string
 	Sleep           int64
@@ -44,9 +46,10 @@ func main() {
 			panic("invalid InterfaceName")
 		case config.DomainName == "":
 			panic("invalid InterfaceName")
-		case config.RRKeyWord == "":
-			panic("invalid InterfaceName")
+			//case config.RRKeyWord == "":
+			//	panic("invalid InterfaceName")
 		}
+		config.RRKeyWord, config.DomainName = SpliteDomain(config.Domain)
 		updateRecoder()
 		switch config.Unit {
 		case "Second":
@@ -62,8 +65,16 @@ func main() {
 	}
 }
 
-func updateRecoder() {
+//SpliteDomain into DomainName, RRKeyWord
+//input a.b.g.com return a.b, g.com
+func SpliteDomain(domain string) (DomainName, RRKeyWord string) {
+	fp := func(s string) int {
+		return strings.LastIndex(s[0:strings.LastIndex(s, ".")], ".")
+	}
+	return domain[0:fp(domain)], domain[fp(domain)+1 : len(domain)]
+}
 
+func updateRecoder() {
 	var (
 		netemp, net4, net6           *net.IPNet
 		ipv4RecoderID, ipv6RecoderID string

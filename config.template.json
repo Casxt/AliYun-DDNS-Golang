@@ -2,8 +2,7 @@
     "AccessKeyId":"",
     "AccessKeySecret":"",
     "InterfaceName":"eth0",
-    "DomainName":"maple.link",
-    "RRKeyWord":"tinker", // tinker.maple.link
+    "Domain":"maple.link",
     "Sleep":5,
     "Unit":"Minute" //Second Hour
 }
