@@ -1,5 +1,5 @@
 #bash
-wget -o https://github.com/Casxt/DDNS/archive/master.zip
+wget https://github.com/Casxt/DDNS/archive/master.zip
 unzip master.zip -d "ddns-src"
 rm -f master.zip
 go get github.com/aliyun/alibaba-cloud-sdk-go/sdk
