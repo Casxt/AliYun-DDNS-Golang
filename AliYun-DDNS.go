@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
+	"os"
 	"reflect"
 	"strings"
 	"time"
@@ -27,9 +28,22 @@ type Config struct {
 var config *Config
 
 func main() {
+	configPath := "config.json"
+	args := os.Args[1:]
+	for i := 0; i < len(args); i++ {
+		if args[i] == "-c" {
+			configPath = args[i]
+			i++
+			continue
+		}
+		if args[i] == "-h" {
+			fmt.Println("-c to specify config \r -h to get help")
+			return
+		}
+	}
 	for {
 		config = new(Config)
-		b, err := ioutil.ReadFile("config.json")
+		b, err := ioutil.ReadFile(configPath)
 		if err != nil {
 			panic(err)
 		}
