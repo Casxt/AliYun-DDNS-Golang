@@ -68,10 +68,8 @@ func main() {
 //SpliteDomain into DomainName, RRKeyWord
 //input a.b.g.com return a.b, g.com
 func SpliteDomain(domain string) (DomainName, RRKeyWord string) {
-	fp := func(s string) int {
-		return strings.LastIndex(s[0:strings.LastIndex(s, ".")], ".")
-	}
-	return domain[0:fp(domain)], domain[fp(domain)+1 : len(domain)]
+	i := strings.LastIndex(s[0:strings.LastIndex(s, ".")], ".")
+	return domain[0:i], domain[i+1 : len(domain)]
 }
 
 func updateRecoder() {

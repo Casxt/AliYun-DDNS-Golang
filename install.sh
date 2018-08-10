@@ -1,7 +1,7 @@
 #bash
-curl -o ddns-src.zip https://github.com/Casxt/DDNS/archive/master.zip
-unzip ddns-src.zip -d "ddns-src"
-rm -f ddns-src.zip
+wget -o https://github.com/Casxt/DDNS/archive/master.zip
+unzip master.zip -d "ddns-src"
+rm -f master.zip
 go get github.com/aliyun/alibaba-cloud-sdk-go/sdk
 go build ddns-src/AliYun-DDNS.go -o ddns-src/DDNS
 sudo cp ddns-src/DDNS /etc/bin/DDNS
