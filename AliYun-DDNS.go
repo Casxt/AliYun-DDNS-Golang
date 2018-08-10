@@ -44,8 +44,8 @@ func main() {
 			panic("invalid AccessKeySecret")
 		case config.InterfaceName == "":
 			panic("invalid InterfaceName")
-		case config.DomainName == "":
-			panic("invalid InterfaceName")
+			//case config.DomainName == "":
+			//	panic("invalid InterfaceName")
 			//case config.RRKeyWord == "":
 			//	panic("invalid InterfaceName")
 		}
