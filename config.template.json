@@ -3,5 +3,5 @@
     "AccessKeySecret":"",
     "InterfaceName":"eth0",
     "Domain":"home.example.com",
-    "Sleep":300
+    "Sleep":3600
 }

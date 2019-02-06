@@ -33,7 +33,7 @@ var (
 )
 
 func main() {
-
+	config = new(Config)
 	flag.StringVar(&(configPath), "c", "", "config path")
 	flag.StringVar(&(configPath), "config", "", "config path")
 
@@ -43,12 +43,14 @@ func main() {
 	flag.StringVar(&(config.Domain), "d", "", "domain name for ddns")
 	flag.StringVar(&(config.Domain), "domain", "", "domain name for ddns")
 
-	flag.Int64Var(&(config.Sleep), "t", 60*60, "how many seconds between per check")
-	flag.Int64Var(&(config.Sleep), "time", 60*60, "how many seconds between per check")
+	flag.Int64Var(&(config.Sleep), "t", 0, "how many seconds between per check")
+	flag.Int64Var(&(config.Sleep), "time", 0, "how many seconds between per check")
 
-	flag.StringVar(&(config.AccessKeyId), "key", "", "Aliyun AccessKeyId")
+	flag.StringVar(&config.AccessKeyId, "key", "", "Aliyun AccessKeyId")
 
 	flag.StringVar(&(config.AccessKeySecret), "sec", "", "Aliyun AccessKeySecret")
+
+	flag.Parse()
 
 	if configPath != "" {
 		config = loadConfig(configPath)
@@ -77,6 +79,9 @@ func main() {
 			ipv4, ipv6 = getIpFromSBAPI()
 		}
 		updateRecoder(config.AccessKeyId, config.AccessKeySecret, rpKeyWord, domainName, ipv4, ipv6)
+		if config.Sleep == 0 {
+			return
+		}
 		time.Sleep(time.Duration(config.Sleep) * time.Second)
 	}
 }
@@ -101,21 +106,42 @@ func loadConfig(configPath string) *Config {
 }
 
 func getIpFromSBAPI() (ipv4, ipv6 string) {
-	resp, err := http.Get("https://api-ipv4.ip.sb/ip")
+	var (
+		ipv4Json = make(map[string]string)
+		ipv6Json = make(map[string]string)
+		ok       bool
+	)
+	resp, err := http.Get("https://api-ipv4.ip.sb/jsonip")
 	if err != nil {
 		ipv4 = ""
 	} else {
 		if body, err := ioutil.ReadAll(resp.Body); err != nil {
-			ipv4 = string(body)
+			fmt.Println("get ip from SBAPI failed:", err.Error())
+		} else {
+			if err := json.Unmarshal(body, &ipv4Json); err != nil {
+				fmt.Println("get ip from SBAPI failed:", err.Error())
+			} else {
+				if ipv4, ok = ipv4Json["ip"]; !ok {
+					ipv4 = ""
+				}
+			}
 		}
 	}
 
-	resp, err = http.Get("https://api-ipv6.ip.sb/ip")
+	resp, err = http.Get("https://api-ipv6.ip.sb/jsonip")
 	if err != nil {
 		ipv6 = ""
 	} else {
 		if body, err := ioutil.ReadAll(resp.Body); err != nil {
-			ipv6 = string(body)
+			fmt.Println("get ip from SBAPI failed:", err.Error())
+		} else {
+			if err := json.Unmarshal(body, &ipv6Json); err != nil {
+				fmt.Println("get ip from SBAPI failed:", err.Error())
+			} else {
+				if ipv6, ok = ipv6Json["ip"]; !ok {
+					ipv6 = ""
+				}
+			}
 		}
 	}
 	return ipv4, ipv6
@@ -157,7 +183,7 @@ func getIpFromInterface(interfaceName string) (ipv4, ipv6 string) {
 
 	if net4 == nil && net6 == nil {
 		fmt.Println(ifaces)
-		fmt.Println("Get Address Failed: InterFace Not exist or not have any ip")
+		fmt.Println("Get Address Failed: InterFace Not exists or not have any ip")
 		return "", ""
 	}
 	if net4 != nil {
