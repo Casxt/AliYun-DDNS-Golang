@@ -2,7 +2,6 @@
     "AccessKeyId":"",
     "AccessKeySecret":"",
     "InterfaceName":"eth0",
-    "Domain":"maple.link",
-    "Sleep":5,
-    "Unit":"Minute"
+    "Domain":"home.example.com",
+    "Sleep":300
 }
