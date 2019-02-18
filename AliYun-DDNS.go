@@ -249,17 +249,21 @@ func updateRecoder(AccessKeyId, AccessKeySecret, RRKeyWord, DomainName, ipv4, ip
 				switch recoder["Type"].(string) {
 				case "A":
 					if ipv4 != "" && ipv4 != recoder["Value"].(string) {
+						// ipv4 存在 且 地址改变
 						ipv4RecoderID = recoder["RecordId"].(string)
 						fmt.Println("Get Ipv4 recoder ID:", ipv4RecoderID, "; Value:", recoder["Value"].(string))
 					} else {
+						// ipv4 地址未改变
 						ipv4 = ""
 						fmt.Println("Ipv4 not change:", recoder["Value"].(string))
 					}
 				case "AAAA":
 					if ipv6 != "" && ipv6 != recoder["Value"].(string) {
+						// ipv6 存在 且 地址改变
 						ipv6RecoderID = recoder["RecordId"].(string)
 						fmt.Println("Get Ipv6 recoder ID:", ipv6RecoderID, "; Value:", recoder["Value"].(string))
 					} else {
+						// ipv6 地址未改变
 						ipv6 = ""
 						fmt.Println("Ipv6 not change:", recoder["Value"].(string))
 					}
